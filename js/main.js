@@ -1,12 +1,12 @@
 function loadContents() {
   // incluide all links in the array
-  const linksHtml = `<p> thi is a test: </p>`;
+  let linksHtml = "";
   const links = [{
-      label: "Week1",
+      label: "Week1 notes",
       url: "week1/index.html"
     },
     {
-      label: "Week2",
+      label: "Week2 notes",
       url: "week2/index.html"
     },
   ];
