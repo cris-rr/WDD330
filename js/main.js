@@ -16,6 +16,6 @@ function loadContents() {
   });
 
   document.getElementById("contentList").innerHTML = linksHtml;
-
+  console.log("pass cr");
 
 }
