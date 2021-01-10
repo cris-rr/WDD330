@@ -1,6 +1,6 @@
 function loadContents() {
   // incluide all links in the array
-  const linksHtml;
+  const linksHtml = "";
   const links = [{
       label: "Week1",
       url: "week1/index.html"
