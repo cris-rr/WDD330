@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="week.css">
+  <title>Week 4</title>
+</head>
+
+<body>
+  <header>
+    <h1>Cristhians Ruiz WDD330 Portfolio</h1>
+  </header>
+  <h2>WDD 330 - Week 4</h2>
+
+  <section class="ninja">
+
+    <h3>Quiz Ninja Project</h3>
+    <div id='score'>Score: <strong>0</strong></div>
+    <div id='question'></div>
+    <form id='response'>
+      <input name='answer' type='text'>
+      <button class="button" type='submit'>Submit Answer</button>
+    </form>
+    <div id='result'></div>
+    <div id='info'></div>
+    <button class="button" id='start'>Click to Start</button>
+
+  </section>
+
+  <section>
+    <h3>Notes and comments</h3>
+    <ul>
+      <li>This week we learn about Forms, (OOP) object oriented programming and modern Javascript</li>
+      <li>Prototypal needs further reading. </li>
+    </ul>
+    <div>
+      <h4>Object Oriented Programming</h4>
+      <ul>
+        <li class="category"><span class="subtitle">Prototypal inheritance:</span>
+          <p>
+            JavaScript uses a prototypal inheritance model. This means that every class has a prototype property that is
+            shared by every instance of the class. So any properties or methods of a class’s prototype can be accessed
+            by every object instantiated by that class.</p>
+          <p>When creating a class, you would normally add any default properties and methods to the class declaration.
+            But what if you want to augment the class with extra methods and properties after it has been created? It
+            turns out that you can still do this using the prototype property of the class. This is particularly useful
+            if you don’t have access to the class declaration, but still want to add properties and methods to the
+            class. </p>
+          <ul>
+            <li>
+              <p>Creating a Class and an instance</p>
+              <img src="images/proto1.png" alt="a simple class">
+            </li>
+            <li>
+              <p>Adding a property to the class prototype</p>
+              <img src="images/proto3.png" alt="add property using prototype">
+            </li>
+            <li>
+              <p>Adding a method to the class prototype</p>
+              <img src="images/proto4.png" alt="add property using prototype">
+            </li>
+            <li>
+              <p>Creating a new instance of the class</p>
+              <img src="images/proto5.png" alt="add property using prototype">
+            </li>
+            <li>
+              <p>Display properties and methods of the instance, from the class and the prototype</p>
+              <img src="images/proto6.png" alt="add property using prototype">
+            </li>
+
+          </ul>
+          <p>Other usefull resource with more info:</p>
+          <ul>
+            <li><a href="https://javascript.info/prototype-inheritance">Javascript Info</a></li>
+            <li><a href="https://www.javascripttutorial.net/javascript-prototypal-inheritance/">Javascript tutorial</a>
+            </li>
+          </ul>
+
+        </li>
+        <li class="category"><span class="subtitle">Composition over inheritance:</span>
+          <p>This video is a simple way to compare and how to use composition</p>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/fbpXQ0e8Mp8" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+  <script src="main.js"></script>
+</body>
+
+</html>

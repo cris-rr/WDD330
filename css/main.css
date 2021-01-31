@@ -36,3 +36,15 @@ h3 {
 .example {
   margin: 0;
 }
+
+.subtitle {
+  font-weight: bold;
+}
+
+.category {
+  margin-top: 1rem;
+}
+
+img {
+  width: 80%;
+}
