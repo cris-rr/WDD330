@@ -46,5 +46,13 @@ h3 {
 }
 
 img {
-  width: 80%;
+  width: 95%;
+  height: auto;
+}
+
+@media only screen and (min-width: 660px) {
+  img {
+    width: auto;
+    height: auto;
+  }
 }
