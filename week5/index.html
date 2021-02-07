@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="week.css">
+  <title>Week 5</title>
+</head>
+
+<body>
+  <header>
+    <h1>Cristhians Ruiz WDD330 Portfolio</h1>
+  </header>
+  <h2>WDD 330 - Week 5</h2>
+
+
+  <section>
+    <h3>Notes and comments</h3>
+    <ul>
+      <li>This week we learn about Testing and debugging</li>
+      <li>Testing frameworks not quite sure how this work, I will read more. </li>
+    </ul>
+    <div>
+      <h4>Debugging and testing, tools and tips
+      </h4>
+      <ul>
+        <li class="category"><span class="subtitle">Why is important:</span>
+          <p>
+            JavaScript is a fairly forgiving language when it comes to errors; it didn’t implement exceptions at all
+            until
+            ECMAScript version 3. Instead of alerting a user to an error in a program, it just failed silently in the
+            background, and this is sometimes still the case. It might seem like a good idea at first, but the error
+            might
+            give unexpected or incorrect results that nobody spots, or lurk in the background for a long time before
+            causing the program to crash spectacularly. Failing silently makes errors difficult to spot and longer to
+            track down.
+
+            For this reason, a ninja programmer should ensure that the code they write fails loudly in development so
+            any
+            errors can be identified and fixed quickly. In production, a ninja programmer should try to make the code
+            fail
+            gracefully (although not completely silently ― we still need to know there’s an error), so the user
+            experience
+            is not affected, if possible. This is achieved by making sure exceptions are caught and dealt with, and code
+            is tested rigorously.
+          </p>
+
+
+        </li>
+        <li class="category"><span class="subtitle">The browser is a friend:</span>
+
+          <p>A good video to remember how to use chrome for debugging</p>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/H0XScE08hy8" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </li>
+        <li class="category"><span class="subtitle">Exception Handling:</span>
+          <p>
+            When an exception occurs, the program terminates with an error message. This is ideal in development as it
+            allows us to identify and fix errors. In production, however, it will appear as if the program has crashed,
+            which does not reflect well on a ninja programmer.
+            It is possible to handle exceptions gracefully by catching the error. Any errors can be hidden from users,
+            but still identified. We can then deal with the error appropriately ― perhaps even ignore it ― and keep the
+            program running.
+
+          </p>
+          <p>
+            <strong>try, catch, and finally</strong>
+          </p>
+          <img src="images/try.png" alt="try catch example">
+        </li>
+        <li class="category"><span class="subtitle">Testing in JavaScript:</span>
+
+          <p>This video helps me to undestand better</p>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/r9HdJ8P6GQI" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </li>
+
+        <li class="category"><span class="subtitle">Jest Framework:</span>
+          <p>
+            Jest11 is a TDD framework, created by Facebook, that has gained a lot of popularity recently. It
+            makes it easy to create and run tests by providing helper methods for common test assertions.
+          </p>
+          <p>
+            This is a good review about Jest.
+            <a
+              href="https://code.tutsplus.com/tutorials/8-things-that-make-jest-the-best-react-testing-framework--cms-30534">8
+              Things That Make Jest the Best React Testing Framework</a>
+          </p>
+
+        </li>
+
+      </ul>
+    </div>
+  </section>
+  <script src="main.js"></script>
+</body>
+
+</html>
