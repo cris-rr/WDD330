@@ -15,10 +15,6 @@ body {
   text-decoration: line-through;
 }
 
-.hide {
-  display: none;
-}
-
 main {
   margin: 0 auto;
   max-width: 600px;
@@ -50,8 +46,16 @@ a {
   padding: 0;
 }
 
-.tasks li {
+.show {
   display: flex;
+}
+
+.hide {
+  display: none;
+}
+
+.tasks li {
+  /* display: flex; */
   flex-direction: row;
   justify-content: space-between;
   text-align: left;
@@ -60,6 +64,7 @@ a {
   padding: 0 0.5rem;
   
 }
+
 
 .tasks a {
   font-size: 1.5rem;
@@ -122,4 +127,10 @@ input[type='text'] {
   flex: 0 1 10%;
   font-size: 2rem;
   
+}
+
+.tasks-left {
+  padding-right: 0.5rem;
+  text-align: center;
+  font-weight: bold;
 }
