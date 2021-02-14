@@ -126,7 +126,7 @@ input[type='text'] {
 .btn {
   flex: 0 1 10%;
   font-size: 2rem;
-  
+  margin-left: 0.1rem;
 }
 
 .tasks-left {

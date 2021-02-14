@@ -11,4 +11,5 @@ window.addEventListener("load", () => {
 window.checkTask = todo.checkTask;
 window.deleteTask = todo.deleteTask;
 window.addTask = todo.addTask;
+window.enterPress = todo.enterPress;
 window.filter = todo.filterTasks;

@@ -1,4 +1,5 @@
 export default class UtilitiesHelper {
+
   // get element from the dom and render tasks
   static renderTasks(tasks) {
     const todoList = document.getElementById("taskList");
@@ -15,7 +16,6 @@ export default class UtilitiesHelper {
         <a id='a_${t.id}' href='#' onclick='deleteTask(this.id)'> X </a>         
         </li>`;
     });
-
     todoList.innerHTML = view;
   }
 
@@ -29,6 +29,14 @@ export default class UtilitiesHelper {
       <a id='a_${task.id}' href='#' onclick='deleteTask(this.id)'> X </a></li>`;
     todoList.innerHTML += view;
     document.getElementById('add').value = '';
+  }
+
+  static enterPress(event) {
+    let add = false;
+    if (event.key === 'Enter') {
+      add = true;
+    }
+    return add;
   }
 
   static checkTask(id) {

@@ -17,6 +17,12 @@ export default class Todo {
     LocalDataHelper.saveTasks(this.taskList);
   }
 
+  enterPress(event) {
+    if (UtilitiesHelper.enterPress(event)) {
+      self.addTask();
+    }
+  }
+
   addTask() {
     if (UtilitiesHelper.getNewValue()) {
       // add task to object
