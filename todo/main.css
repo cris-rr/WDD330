@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans JP',
+    sans-serif;
+  font-weight: 300;
+  padding: 2rem;
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+.hide {
+  display: none;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3rem;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  align-self: center;
+}
+
+.task-container {
+  border: black 1px solid;
+  font-size: 1.2rem;
+
+}
+
+.task {
+  padding: 0;
+}
+
+.tasks li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: gray 1px solid;
+  padding: 0 0.5rem;
+  
+}
+
+.tasks a {
+  font-size: 1.5rem;
+  padding: 0.5rem;
+}
+
+li>p {
+  flex: 1 0 auto;
+  padding: 0.5rem;
+  margin: 0;
+  align-self: center;
+}
+
+
+
+input {
+  text-align: left;
+}
+
+input[type='checkbox'] {
+  margin: 0;
+  align-self: center;
+  width: 30px;
+  height: 30px;
+  
+}
+
+.tasklist-footer ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 0.5rem;
+}
+
+.tasklist-footer li {
+
+}
+
+.tasklist-footer a:hover {
+  color: rgb(34, 126, 69);
+  font-weight: bold;
+}
+
+.task-add {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: row;
+}
+
+input[type='text'] {
+  margin: 0;
+  align-self: center;
+  width: 100%;
+  height: 40px;
+  flex: 1 1 90%;
+  font-size: 1.2rem;
+}
+
+.btn {
+  flex: 0 1 10%;
+  font-size: 2rem;
+  
+}

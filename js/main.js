@@ -21,6 +21,10 @@ function loadContents() {
       label: "Week5 notes",
       url: "week5/index.html"
     },
+    {
+      label: "Todo Challenge",
+      url: "todo/index.html"
+    },
   ];
 
   links.map((link) => {
