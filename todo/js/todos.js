@@ -21,7 +21,12 @@ export default class Todo {
     if (UtilitiesHelper.getNewValue()) {
       // add task to object
       let task = new Task(UtilitiesHelper.getNewValue(), false)
-      self.taskList.push(task);
+      if (self.taskList.length > 0) {
+        self.taskList.push(task);
+      } else {
+        self.taskList = [task];
+      }
+
       LocalDataHelper.saveTasks(self.taskList);
       // add task from html
       UtilitiesHelper.renderTask(task);
