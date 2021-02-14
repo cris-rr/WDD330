@@ -10,7 +10,7 @@ export default class Todo {
 
   renderTasks() {
     UtilitiesHelper.renderTasks(this.taskList);
-    this.leftTasks(self.taskList);
+    self.leftTasks(self.taskList);
   }
 
   saveTodo(task, key) {
@@ -30,7 +30,7 @@ export default class Todo {
       LocalDataHelper.saveTasks(self.taskList);
       // add task from html
       UtilitiesHelper.renderTask(task);
-      this.leftTasks(self.taskList);
+      self.leftTasks(self.taskList);
     }
   }
 
@@ -45,7 +45,7 @@ export default class Todo {
 
     // update html
     UtilitiesHelper.deleteTask(id);
-    this.leftTasks(self.taskList);
+    self.leftTasks(self.taskList);
 
   }
 
