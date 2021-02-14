@@ -21,7 +21,7 @@ export default class Todo {
     if (UtilitiesHelper.getNewValue()) {
       // add task to object
       let task = new Task(UtilitiesHelper.getNewValue(), false)
-      if (self.taskList.length > 0) {
+      if (self.taskList) {
         self.taskList.push(task);
       } else {
         self.taskList = [task];
