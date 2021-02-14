@@ -22,12 +22,13 @@ export default class UtilitiesHelper {
   static renderTask(task) {
     const todoList = document.getElementById("taskList");
     let view = '';
-    view = `<li id='${task.id}'>
+    view = `<li id='${task.id}' class='show'>
       <input type='checkbox'
       id='cb_${task.id}' onclick='checkTask(this.id)'/>
       <p>${task.content}</p>
       <a id='a_${task.id}' href='#' onclick='deleteTask(this.id)'> X </a></li>`;
     todoList.innerHTML += view;
+    document.getElementById('add').value = '';
   }
 
   static checkTask(id) {
