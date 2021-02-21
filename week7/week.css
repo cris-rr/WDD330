@@ -1,0 +1,18 @@
+/* quiz ninja project */
+.ninja {
+  display: flex;
+  flex-direction: column;
+  border: darkgreen solid 1px;
+  border-radius: 5px;
+  padding: 1rem;
+  text-align: center;
+  justify-content: space-around;
+  
+  
+}
+
+.button {
+  max-width: 300px;
+  flex: 0 1 auto;
+  margin: 0 auto;
+}
