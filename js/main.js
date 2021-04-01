@@ -33,6 +33,10 @@ function loadContents() {
       label: "Week9 notes",
       url: "week9/index.html"
     },
+    {
+      label: "Movie Pick project",
+      url: "moviePick/index.html"
+    },
   ];
 
   links.map((link) => {
