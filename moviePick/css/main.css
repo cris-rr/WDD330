@@ -82,15 +82,16 @@ html {
   flex-flow: row wrap;
 }
 
-.content div {
-  /* width: 300px; */
-}
+/* .content div {
+  width: 300px; 
+} */
 
 .providers-container {
   margin-top: 1rem;
   display: flex;
   flex-flow: row wrap;
 }
+
 .provider {
   padding-right: 0.3rem;
 }
