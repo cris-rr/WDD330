@@ -11,83 +11,9 @@ const searchButton = document.querySelector('#search');;
 const searchInput = document.querySelector('#inputSearch');
 const moviesContainer = document.querySelector('#moviesContainer');
 const providersContainer = document.querySelector('#providersContainer')
-// const moviesSearchable = document.querySelector('#movies-searchable');
-
-function createImageContainer(imageUrl, id) {
-  const tempDiv = document.createElement('div');
-  tempDiv.setAttribute('class', 'imageContainer');
-  tempDiv.setAttribute('data-id', id);
-
-  const movieElement = `
-        <img src="${imageUrl}" alt="" data-movie-id="${id}">
-    `;
-  tempDiv.innerHTML = movieElement;
-
-  return tempDiv;
-}
-
-function resetInput() {
-  searchInput.value = '';
-}
-
-export function handleGeneralError(error) {
-  log('Error: ', error.message);
-  alert(error.message || 'Internal Server');
-}
-
-function createIframe(video) {
-  const videoKey = (video && video.key) || 'No key found!!!';
-  const iframe = document.createElement('iframe');
-  iframe.src = `https://www.youtube.com/embed/${videoKey}`;
-  iframe.width = 360;
-  iframe.height = 315;
-  iframe.allowFullscreen = true;
-  return iframe;
-}
-
-function insertIframeIntoContent(video, content) {
-  const videoContent = document.createElement('div');
-  const iframe = createIframe(video);
-
-  videoContent.appendChild(iframe);
-  content.appendChild(videoContent);
-}
 
 
-export function createVideoTemplate(data) {
-  const content = this.content;
-  // content.innerHTML = '<p id="content-close">X</p>';
-  content.innerHTML = '';
-  const videos = data.results || [];
-
-  if (videos.length === 0) {
-    // content.innerHTML = `
-    //         <p id="content-close">X</p>
-    //         <p>No Trailer found for this video id of ${data.id}</p>
-    //     `;
-    content.innerHTML = `<p>No Trailer found for this video id of ${data.id}</p>`;
-    return;
-  }
-
-  for (let i = 0; i < 4; i++) {
-    const video = videos[i];
-    insertIframeIntoContent(video, content);
-  }
-}
-
-function createSectionHeader(title) {
-  const header = document.createElement('h2');
-  header.innerHTML = title;
-
-  return header;
-}
-
-export function renderProviders(data) {
-  // console.log(data.results.US.flatrate);
-  providersContainer.innerHTML = '';
-  const providersBlock = generateProvidersBlock(data.results.US.flatrate);
-  providersContainer.innerHTML = providersBlock;
-}
+// Movies -----------------------------------------
 
 export function renderMovies(data) {
   moviesContainer.innerHTML = '';
@@ -95,34 +21,6 @@ export function renderMovies(data) {
   // const header = createSectionHeader(this.title);
   // moviesBlock.insertBefore(header, moviesBlock.firstChild);
   moviesContainer.appendChild(moviesBlock);
-}
-
-
-
-// function renderSearchMovies(data) {
-//   moviesSearchable.innerHTML = '';
-//   const moviesBlock = generateMoviesBlock(data);
-//   moviesSearchable.appendChild(moviesBlock);
-// }
-
-function generateProvidersBlock(data) {
-  const providers = data;
-  console.log(providers)
-  let block = '';
-  for (let i = 0; i < providers.length; i++) {
-    const provider = providers[i];
-    console.log('provider: ', provider);
-    const name = provider.provider_name;
-    const logo = ApiMdb.TMDB_PROVIDER_LOGO + provider.logo_path;
-    block += `
-    <div class="provider">
-      <p>${name}</p>
-      <img src="${logo}" alt="${name}">
-    </div>`;
-  }
-  console.log(block);
-  // providersContainer.innerHTML = block;
-  return block;
 }
 
 function generateMoviesBlock(data) {
@@ -149,7 +47,18 @@ function generateMoviesBlock(data) {
   return movieSectionAndContent;
 }
 
+function createImageContainer(imageUrl, id) {
+  const tempDiv = document.createElement('div');
+  tempDiv.setAttribute('class', 'imageContainer');
+  tempDiv.setAttribute('data-id', id);
 
+  const movieElement = `
+        <img src="${imageUrl}" alt="" data-movie-id="${id}">
+    `;
+  tempDiv.innerHTML = movieElement;
+
+  return tempDiv;
+}
 
 // Inserting section before content element
 function createMovieContainer(section) {
@@ -166,6 +75,99 @@ function createMovieContainer(section) {
   return movieElement;
 }
 
+
+// Videos -----------------------------------------
+
+export function createVideoTemplate(data) {
+  const content = this.content;
+  // content.innerHTML = '<p id="content-close">X</p>';
+  content.innerHTML = '';
+  const videos = data.results || [];
+
+  if (videos.length === 0) {
+    // content.innerHTML = `
+    //         <p id="content-close">X</p>
+    //         <p>No Trailer found for this video id of ${data.id}</p>
+    //     `;
+    content.innerHTML = `<p>No Trailer found for this video id of ${data.id}</p>`;
+    return;
+  }
+
+  for (let i = 0; i < 4; i++) {
+    const video = videos[i];
+    insertIframeIntoContent(video, content);
+  }
+}
+
+function insertIframeIntoContent(video, content) {
+  const videoContent = document.createElement('div');
+  const iframe = createIframe(video);
+
+  videoContent.appendChild(iframe);
+  content.appendChild(videoContent);
+}
+
+function createIframe(video) {
+  const videoKey = (video && video.key) || 'No key found!!!';
+  const iframe = document.createElement('iframe');
+  iframe.src = `https://www.youtube.com/embed/${videoKey}`;
+  iframe.width = 360;
+  iframe.height = 315;
+  iframe.allowFullscreen = true;
+  return iframe;
+}
+
+
+// Streaming Providers ------------------------------
+
+export function renderProviders(data) {
+  // console.log(data.results.US.flatrate);
+  providersContainer.innerHTML = '';
+  const providersBlock = generateProvidersBlock(data.results.US.flatrate);
+  providersContainer.innerHTML = providersBlock;
+}
+
+function generateProvidersBlock(data) {
+  const providers = data;
+  console.log(providers)
+  let block = '';
+  for (let i = 0; i < providers.length; i++) {
+    const provider = providers[i];
+    console.log('provider: ', provider);
+    const name = provider.provider_name;
+    const logo = ApiMdb.TMDB_PROVIDER_LOGO + provider.logo_path;
+    block += `
+    <div class="provider">
+      <p>${name}</p>
+      <img src="${logo}" alt="${name}">
+    </div>`;
+  }
+  console.log(block);
+  // providersContainer.innerHTML = block;
+  return block;
+}
+
+// Other functions -----------------------------------
+
+function resetInput() {
+  searchInput.value = '';
+}
+
+export function handleGeneralError(error) {
+  log('Error: ', error.message);
+  alert(error.message || 'Internal Server');
+}
+
+function createSectionHeader(title) {
+  const header = document.createElement('h2');
+  header.innerHTML = title;
+
+  return header;
+}
+
+// events functions ---------------------------------
+
+// Search movies
 searchButton.onclick = function (event) {
   event.preventDefault();
   const value = searchInput.value
@@ -177,9 +179,7 @@ searchButton.onclick = function (event) {
 }
 
 // Click on any movies
-// Event Delegation
 document.onclick = function (event) {
-  // log('Event: ', event);
   const {
     tagName,
     id

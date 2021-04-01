@@ -22,6 +22,7 @@
       this.TMDB_PROVIDER_LOGO = TMDB_PROVIDER_LOGO;
     }
 
+    // General methods --------------------------------------------------------
     requestMovies(url, onComplete, onError) {
       fetch(url)
         .then((res) => res.json())
@@ -42,6 +43,8 @@
       return url;
     }
 
+    // Get methods for search top rated and popular movies --------------------
+
     getTopRatedMovies() {
       const url = this.generateMovieDBUrl(`/movie/top_rated`);
       const render = renderMovies.bind({
@@ -50,7 +53,7 @@
       this.requestMovies(url, render, handleGeneralError);
     }
 
-    searchPopularMovie() {
+    getPopularMovie() {
       const url = this.generateMovieDBUrl('/movie/popular');
       const render = renderMovies.bind({
         title: 'Popular Movies'
@@ -62,6 +65,8 @@
       const url = this.generateMovieDBUrl('/search/movie') + '&query=' + value;
       this.requestMovies(url, renderMovies);
     }
+
+    // Get methods for extra data, videos and providers ------------------------
 
     getMovieProvidersByMovieId(movieId) {
       // console.log('getMovieProvidersByMovieId movieId', movieId);
