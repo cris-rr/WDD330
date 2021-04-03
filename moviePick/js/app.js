@@ -61,7 +61,7 @@ function generateMoviesBlock(data) {
   if (movies === null) {
     const message = document.createElement('p');
     message.setAttribute('class', 'notification');
-    const messageNode = document.createTextNode('No movies found');
+    const messageNode = document.createTextNode('No movies found, please add a Movie to your Picks');
     message.appendChild(messageNode)
     return message
   }
