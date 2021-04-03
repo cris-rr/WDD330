@@ -10,16 +10,22 @@ const log = console.log;
 const searchButton = document.querySelector('#search');;
 const searchInput = document.querySelector('#inputSearch');
 const moviesContainer = document.querySelector('#moviesContainer');
-const providersContainer = document.querySelector('#providersContainer')
-
+const providersContainer = document.querySelector('#providersContainer');
+const movieCrud = document.querySelector('#movieCrud');
+let movieId = 0;
+let movieTitle = '';
 
 // Movies -----------------------------------------
 
 export function renderMovies(data) {
   moviesContainer.innerHTML = '';
+  showMovieCrud(false);
+  providersContainer.innerHTML = '';
   const moviesBlock = generateMoviesBlock(data);
-  // const header = createSectionHeader(this.title);
-  // moviesBlock.insertBefore(header, moviesBlock.firstChild);
+  if (data.results.length > 0) {
+    const header = createSectionHeader(this.title);
+    moviesBlock.insertBefore(header, moviesBlock.firstChild);
+  }
   moviesContainer.appendChild(moviesBlock);
 }
 
@@ -28,17 +34,24 @@ function generateMoviesBlock(data) {
   const section = document.createElement('section');
   section.setAttribute('class', 'movie-list');
 
+  if (movies.length <= 0) {
+    const message = document.createElement('p');
+    message.setAttribute('class', 'notification');
+    const messageNode = document.createTextNode('No movies found');
+    message.appendChild(messageNode)
+    return message
+  }
+
   for (let i = 0; i < movies.length; i++) {
     const {
       poster_path,
-      id
+      id,
+      title
     } = movies[i];
 
     if (poster_path) {
-      // console.log(ApiMdb.TMDB_IMAGE, poster_path);
       const imageUrl = ApiMdb.TMDB_IMAGE + poster_path;
-
-      const imageContainer = createImageContainer(imageUrl, id);
+      const imageContainer = createImageContainer(imageUrl, id, title);
       section.appendChild(imageContainer);
     }
   }
@@ -47,13 +60,14 @@ function generateMoviesBlock(data) {
   return movieSectionAndContent;
 }
 
-function createImageContainer(imageUrl, id) {
+function createImageContainer(imageUrl, id, title) {
   const tempDiv = document.createElement('div');
   tempDiv.setAttribute('class', 'imageContainer');
   tempDiv.setAttribute('data-id', id);
+  tempDiv.setAttribute('data-title', title);
 
   const movieElement = `
-        <img src="${imageUrl}" alt="" data-movie-id="${id}">
+        <img src="${imageUrl}" alt="" data-movie-id="${id}" data-movie-title="${title}">
     `;
   tempDiv.innerHTML = movieElement;
 
@@ -64,8 +78,8 @@ function createImageContainer(imageUrl, id) {
 function createMovieContainer(section) {
   const movieElement = document.createElement('div');
   movieElement.setAttribute('class', 'movies');
-
   const template = `
+        <h2></h2>
         <div class="content">
         </div>
     `;
@@ -80,15 +94,13 @@ function createMovieContainer(section) {
 
 export function createVideoTemplate(data) {
   const content = this.content;
-  // content.innerHTML = '<p id="content-close">X</p>';
   content.innerHTML = '';
+  const movieHeader = content.previousElementSibling;
+  movieHeader.innerHTML = `Movie selected: ${movieTitle} Videos and Streaming Availability`;
   const videos = data.results || [];
+  showMovieCrud(true);
 
   if (videos.length === 0) {
-    // content.innerHTML = `
-    //         <p id="content-close">X</p>
-    //         <p>No Trailer found for this video id of ${data.id}</p>
-    //     `;
     content.innerHTML = `<p>No Trailer found for this video id of ${data.id}</p>`;
     return;
   }
@@ -121,19 +133,26 @@ function createIframe(video) {
 // Streaming Providers ------------------------------
 
 export function renderProviders(data) {
-  // console.log(data.results.US.flatrate);
   providersContainer.innerHTML = '';
-  const providersBlock = generateProvidersBlock(data.results.US.flatrate);
-  providersContainer.innerHTML = providersBlock;
+  try {
+    const providersBlock = generateProvidersBlock(data.results.US.flatrate);
+    providersContainer.innerHTML = providersBlock;
+  } catch (error) {
+    console.log(error);
+    providersContainer.innerHTML = `<p class="notification">No streaming for this movie</p>`;
+  }
 }
 
 function generateProvidersBlock(data) {
   const providers = data;
-  console.log(providers)
   let block = '';
+  if (!providers) {
+    block = `<p class="notification">No streaming for this movie</p>`;
+    return block
+  }
+
   for (let i = 0; i < providers.length; i++) {
     const provider = providers[i];
-    console.log('provider: ', provider);
     const name = provider.provider_name;
     const logo = ApiMdb.TMDB_PROVIDER_LOGO + provider.logo_path;
     block += `
@@ -142,8 +161,6 @@ function generateProvidersBlock(data) {
       <img src="${logo}" alt="${name}">
     </div>`;
   }
-  console.log(block);
-  // providersContainer.innerHTML = block;
   return block;
 }
 
@@ -158,12 +175,22 @@ export function handleGeneralError(error) {
   alert(error.message || 'Internal Server');
 }
 
+function showMovieCrud(show) {
+  if (show) {
+    movieCrud.classList.remove("no-display");
+  } else {
+    movieCrud.classList.add("no-display");
+  }
+}
+
 function createSectionHeader(title) {
   const header = document.createElement('h2');
   header.innerHTML = title;
 
   return header;
 }
+
+
 
 // events functions ---------------------------------
 
@@ -185,9 +212,10 @@ document.onclick = function (event) {
     id
   } = event.target;
   if (tagName.toLowerCase() === 'img') {
-    const movieId = event.target.dataset.movieId;
+    movieId = event.target.dataset.movieId;
+    movieTitle = event.target.dataset.movieTitle
     const section = event.target.parentElement.parentElement;
-    const content = section.nextElementSibling;
+    const content = section.nextElementSibling.nextElementSibling;
     content.classList.add('content-display');
     ApiMdb.getVideosByMovieId(movieId, content);
     ApiMdb.getMovieProvidersByMovieId(movieId);

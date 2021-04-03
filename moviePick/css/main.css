@@ -82,10 +82,6 @@ html {
   flex-flow: row wrap;
 }
 
-/* .content div {
-  width: 300px; 
-} */
-
 .providers-container {
   margin-top: 1rem;
   display: flex;
@@ -94,4 +90,13 @@ html {
 
 .provider {
   padding-right: 0.3rem;
+}
+
+.notification {
+  color: var(--redish);
+  font-size: 1.5rem;
+}
+
+.no-display {
+  display: none;
 }

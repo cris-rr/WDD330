@@ -38,7 +38,6 @@
     }
 
     generateMovieDBUrl(path) {
-      console.log('tmdb_url', this.TMDB_URL)
       const url = `${this.TMDB_URL}/3${path}?api_key=${this.TMDB_API_KEY}`;
       return url;
     }
@@ -63,7 +62,10 @@
 
     searchMovie(value) {
       const url = this.generateMovieDBUrl('/search/movie') + '&query=' + value;
-      this.requestMovies(url, renderMovies);
+      const render = renderMovies.bind({
+        title: 'Movies Founded'
+      })
+      this.requestMovies(url, render);
     }
 
     // Get methods for extra data, videos and providers ------------------------
@@ -79,7 +81,7 @@
       const render = createVideoTemplate.bind({
         content
       });
-      this.requestMovies(url, render, handleGeneralError);
+      this.requestMovies(url, render);
     }
 
 
