@@ -37,8 +37,12 @@ html {
   line-height: 1.5;
 }
 
-.button-save {
+.button-save, .button-delete {
   margin-top: 1rem;
+}
+
+.button-delete {
+  background-color: var(--redish);
 }
 
 .input-basic {

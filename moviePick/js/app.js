@@ -1,6 +1,9 @@
 import ApiCall from './apicall.js';
+import LocalData from './ls.js';
+import Movie from './movie.js';
 
 const ApiMdb = new ApiCall();
+
 
 // Initial Values
 const INITIAL_SEARCH_VALUE = 'avengers';
@@ -9,13 +12,18 @@ const log = console.log;
 // Selecting elements from the DOM
 const pageTitle = document.querySelector('#pageTitle');
 const formSearch = document.querySelector('#formSearch');
-const searchButton = document.querySelector('#search');;
+const searchButton = document.querySelector('#search');
 const searchInput = document.querySelector('#inputSearch');
 const moviesContainer = document.querySelector('#moviesContainer');
 const providersContainer = document.querySelector('#providersContainer');
 const movieCrud = document.querySelector('#movieCrud');
+const saveButton = document.querySelector('#save');
+const deleteButton = document.querySelector('#delete');
+let crudDelete = false;
 let movieId = 0;
 let movieTitle = '';
+let moviePosterPath = '';
+let movieList = LocalData.getMovies().results;
 
 // Movies -----------------------------------------
 
@@ -180,6 +188,14 @@ export function handleGeneralError(error) {
 function showMovieCrud(show) {
   if (show) {
     movieCrud.classList.remove("no-display");
+    if (!crudDelete) {
+      saveButton.classList.remove('no-display');
+      deleteButton.classList.add('no-display')
+    } else {
+      saveButton.classList.add('no-display');
+      deleteButton.classList.remove('no-display')
+    }
+
   } else {
     movieCrud.classList.add("no-display");
   }
@@ -196,11 +212,6 @@ function createSectionHeader(title) {
 
 // events functions ---------------------------------
 
-// Pages 
-function goToPage(event) {
-  log(event.target);
-}
-
 // Search movies
 searchButton.onclick = function (event) {
   event.preventDefault();
@@ -212,6 +223,25 @@ searchButton.onclick = function (event) {
   resetInput();
 }
 
+// Save movies
+saveButton.onclick = function (event) {
+  event.preventDefault();
+  let movie = new Movie(movieId, movieTitle, moviePosterPath);
+  log('saveButton movie :', movie);
+
+  if (movieList) {
+    movieList.push(movie);
+  } else {
+    movieList = [movie];
+  }
+
+  LocalData.saveMovies(movieList)
+
+}
+
+// Delete movies
+
+
 // Click on any movies
 document.onclick = function (event) {
   const {
@@ -219,8 +249,13 @@ document.onclick = function (event) {
     id
   } = event.target;
   if (tagName.toLowerCase() === 'img') {
+    log('img datased: ', event.target);
     movieId = event.target.dataset.movieId;
-    movieTitle = event.target.dataset.movieTitle
+    movieTitle = event.target.dataset.movieTitle;
+    moviePosterPath = event.target.src;
+    moviePosterPath = moviePosterPath.slice(ApiMdb.TMDB_IMAGE.length);
+    // log('src ', moviePosterPath);
+
     const section = event.target.parentElement.parentElement;
     const content = section.nextElementSibling.nextElementSibling;
     content.classList.add('content-display');
@@ -230,12 +265,15 @@ document.onclick = function (event) {
 
   // Pages -------------------------------------------------------
   if (tagName.toLowerCase() === 'a') {
-    log(event.target.id);
+    crudDelete = false;
     switch (event.target.id) {
       case 'moviePicks':
         formSearch.classList.add('no-display')
         pageTitle.innerHTML = 'My Movie Picks';
-        // ls.getPicks
+        let data = LocalData.getMovies();
+        crudDelete = true;
+        // log(data);
+        renderMovies(data);
         break;
       case 'movieSearch':
         formSearch.classList.remove('no-display')
