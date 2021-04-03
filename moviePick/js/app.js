@@ -316,3 +316,5 @@ document.onclick = function (event) {
     }
   }
 }
+
+renderMoviePicks();
