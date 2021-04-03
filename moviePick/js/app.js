@@ -3,10 +3,12 @@ import ApiCall from './apicall.js';
 const ApiMdb = new ApiCall();
 
 // Initial Values
-const INITIAL_SEARCH_VALUE = 'spiderman';
+const INITIAL_SEARCH_VALUE = 'avengers';
 const log = console.log;
 
 // Selecting elements from the DOM
+const pageTitle = document.querySelector('#pageTitle');
+const formSearch = document.querySelector('#formSearch');
 const searchButton = document.querySelector('#search');;
 const searchInput = document.querySelector('#inputSearch');
 const moviesContainer = document.querySelector('#moviesContainer');
@@ -22,10 +24,10 @@ export function renderMovies(data) {
   showMovieCrud(false);
   providersContainer.innerHTML = '';
   const moviesBlock = generateMoviesBlock(data);
-  if (data.results.length > 0) {
-    const header = createSectionHeader(this.title);
-    moviesBlock.insertBefore(header, moviesBlock.firstChild);
-  }
+  // if (data.results.length > 0) {
+  //   const header = createSectionHeader(this.title);
+  //   moviesBlock.insertBefore(header, moviesBlock.firstChild);
+  // }
   moviesContainer.appendChild(moviesBlock);
 }
 
@@ -194,6 +196,11 @@ function createSectionHeader(title) {
 
 // events functions ---------------------------------
 
+// Pages 
+function goToPage(event) {
+  log(event.target);
+}
+
 // Search movies
 searchButton.onclick = function (event) {
   event.preventDefault();
@@ -221,13 +228,33 @@ document.onclick = function (event) {
     ApiMdb.getMovieProvidersByMovieId(movieId);
   }
 
-  if (id === 'content-close') {
-    const content = event.target.parentElement;
-    content.classList.remove('content-display');
+  // Pages -------------------------------------------------------
+  if (tagName.toLowerCase() === 'a') {
+    log(event.target.id);
+    switch (event.target.id) {
+      case 'moviePicks':
+        formSearch.classList.add('no-display')
+        pageTitle.innerHTML = 'My Movie Picks';
+        // ls.getPicks
+        break;
+      case 'movieSearch':
+        formSearch.classList.remove('no-display')
+        pageTitle.innerHTML = 'Search Movies';
+        ApiMdb.searchMovie(INITIAL_SEARCH_VALUE);
+        break;
+      case 'movieRated':
+        formSearch.classList.add('no-display')
+        pageTitle.innerHTML = 'Top Rated Movies';
+        ApiMdb.getTopRatedMovies();
+        break;
+      case 'moviePopular':
+        formSearch.classList.add('no-display')
+        pageTitle.innerHTML = 'Popular Movies';
+        ApiMdb.getPopularMovies();
+        break;
+      default:
+        log('check error in default <a> tag');
+        break;
+    }
   }
 }
-
-// Initialize the search
-// ApiMdb.searchMovie(INITIAL_SEARCH_VALUE);
-// ApiMdb.getTopRatedMovies();
-// ApiMdb.searchPopularMovie();

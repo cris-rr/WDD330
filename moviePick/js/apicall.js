@@ -52,7 +52,7 @@
       this.requestMovies(url, render, handleGeneralError);
     }
 
-    getPopularMovie() {
+    getPopularMovies() {
       const url = this.generateMovieDBUrl('/movie/popular');
       const render = renderMovies.bind({
         title: 'Popular Movies'
