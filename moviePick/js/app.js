@@ -33,6 +33,9 @@ function renderMoviePicks() {
   formSearch.classList.add('no-display')
   pageTitle.innerHTML = 'My Movie Picks';
   let data = LocalData.getMovies();
+  if (!data.results) {
+    log('movies is null ', data.results);
+  }
   crudDelete = true;
   // log(data);
   renderMovies(data);
@@ -54,8 +57,8 @@ function generateMoviesBlock(data) {
   const movies = data.results;
   const section = document.createElement('section');
   section.setAttribute('class', 'movie-list');
-
-  if (movies.length <= 0) {
+  // if (movies.length <= 0) {
+  if (movies === null) {
     const message = document.createElement('p');
     message.setAttribute('class', 'notification');
     const messageNode = document.createTextNode('No movies found');
@@ -221,6 +224,9 @@ function createSectionHeader(title) {
 }
 
 function checkDuplicate(id) {
+  if (movieList === null) {
+    return false;
+  }
   let index = movieList.findIndex(x => x.id === id);
   if (index > -1) {
     crudMessage.innerHTML = 'This movie is already saved.'
