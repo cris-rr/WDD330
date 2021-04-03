@@ -7,6 +7,7 @@
   --black: #464646;
   --redish: #FF4946;
   --blueish: #3689f5;
+  --bluedark: #0253bd;
   --green: #D6FF31;
   --white: #fff;
   --gray: #8f9294;
@@ -98,6 +99,11 @@ html {
 
 .notification {
   color: var(--redish);
+  font-size: 1.5rem;
+}
+
+.message {
+  color: var(--bluedark);
   font-size: 1.5rem;
 }
 

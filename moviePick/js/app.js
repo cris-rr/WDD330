@@ -19,6 +19,7 @@ const providersContainer = document.querySelector('#providersContainer');
 const movieCrud = document.querySelector('#movieCrud');
 const saveButton = document.querySelector('#save');
 const deleteButton = document.querySelector('#delete');
+const crudMessage = document.querySelector('#crudMessage');
 let crudDelete = false;
 let movieId = 0;
 let movieTitle = '';
@@ -26,6 +27,16 @@ let moviePosterPath = '';
 let movieList = LocalData.getMovies().results;
 
 // Movies -----------------------------------------
+
+// For movie picks render
+function renderMoviePicks() {
+  formSearch.classList.add('no-display')
+  pageTitle.innerHTML = 'My Movie Picks';
+  let data = LocalData.getMovies();
+  crudDelete = true;
+  // log(data);
+  renderMovies(data);
+}
 
 export function renderMovies(data) {
   moviesContainer.innerHTML = '';
@@ -75,6 +86,7 @@ function createImageContainer(imageUrl, id, title) {
   tempDiv.setAttribute('class', 'imageContainer');
   tempDiv.setAttribute('data-id', id);
   tempDiv.setAttribute('data-title', title);
+  tempDiv.setAttribute('id', id);
 
   const movieElement = `
         <img src="${imageUrl}" alt="" data-movie-id="${id}" data-movie-title="${title}">
@@ -208,6 +220,14 @@ function createSectionHeader(title) {
   return header;
 }
 
+function checkDuplicate(id) {
+  let index = movieList.findIndex(x => x.id === id);
+  if (index > -1) {
+    crudMessage.innerHTML = 'This movie is already saved.'
+    return true;
+  }
+  return false;
+}
 
 
 // events functions ---------------------------------
@@ -226,21 +246,28 @@ searchButton.onclick = function (event) {
 // Save movies
 saveButton.onclick = function (event) {
   event.preventDefault();
-  let movie = new Movie(movieId, movieTitle, moviePosterPath);
-  log('saveButton movie :', movie);
-
-  if (movieList) {
-    movieList.push(movie);
-  } else {
-    movieList = [movie];
+  if (!checkDuplicate(movieId)) {
+    let movie = new Movie(movieId, movieTitle, moviePosterPath);
+    if (movieList) {
+      movieList.push(movie);
+    } else {
+      movieList = [movie];
+    }
+    LocalData.saveMovies(movieList)
+    crudMessage.innerHTML = 'Movie added successfully!'
   }
-
-  LocalData.saveMovies(movieList)
-
 }
 
 // Delete movies
-
+deleteButton.onclick = function (event) {
+  event.preventDefault();
+  let index = movieList.findIndex(x => x.id === movieId);
+  if (index > -1) {
+    movieList.splice(index, 1);
+    LocalData.saveMovies(movieList);
+  }
+  renderMoviePicks();
+}
 
 // Click on any movies
 document.onclick = function (event) {
@@ -249,13 +276,11 @@ document.onclick = function (event) {
     id
   } = event.target;
   if (tagName.toLowerCase() === 'img') {
-    log('img datased: ', event.target);
-    movieId = event.target.dataset.movieId;
+    movieId = parseInt(event.target.dataset.movieId);
     movieTitle = event.target.dataset.movieTitle;
     moviePosterPath = event.target.src;
     moviePosterPath = moviePosterPath.slice(ApiMdb.TMDB_IMAGE.length);
-    // log('src ', moviePosterPath);
-
+    crudMessage.innerHTML = '';
     const section = event.target.parentElement.parentElement;
     const content = section.nextElementSibling.nextElementSibling;
     content.classList.add('content-display');
@@ -268,12 +293,7 @@ document.onclick = function (event) {
     crudDelete = false;
     switch (event.target.id) {
       case 'moviePicks':
-        formSearch.classList.add('no-display')
-        pageTitle.innerHTML = 'My Movie Picks';
-        let data = LocalData.getMovies();
-        crudDelete = true;
-        // log(data);
-        renderMovies(data);
+        renderMoviePicks()
         break;
       case 'movieSearch':
         formSearch.classList.remove('no-display')
