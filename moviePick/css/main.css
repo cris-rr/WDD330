@@ -1,10 +1,10 @@
-
 :root {
   --blue: #90E7F8;
   --yellow: #E6F2B4;
   --red: #FF9291;
   --violet: #EEBCD6;
-  --black: #464646;
+  /* --black: #464646; */
+  --black: #4d4d4d;
   --redish: #FF4946;
   --blueish: #3689f5;
   --bluedark: #0253bd;
@@ -23,6 +23,73 @@ html {
   box-sizing: inherit;
 }
 
+body {
+  font-family: Tahoma,
+    Geneva,
+    sans-serif;
+}
+
+body h1 {
+  color: var(--black);
+}
+
+/* Header ------------------------------------------- */
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 0 0.2rem;
+  align-items: center;
+}
+
+/* nav and navigation ----------------------------- */
+nav {
+  margin-top: 0.5rem;
+  background-color: #3a3a3a;
+}
+
+.menubar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.menu-item {
+  display: block;
+  padding: 0 0.7rem;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.menu-item a {
+  display: block;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  padding: 0.7rem 0;
+  font-size: 0.8rem;
+}
+
+.menu-item a:hover {
+  background-color: #4c96d7;
+  color: #3a3a3a;
+  margin-top: -0.15rem;
+  height: 108%;
+}
+
+
+
+
+.navigate {
+  display: block;
+  margin-top: 2rem;
+  font-weight: 400;
+
+}
+
+/* ------------------------------------------- */
 
 .button {
   color: var(--white);
@@ -38,7 +105,8 @@ html {
   line-height: 1.5;
 }
 
-.button-save, .button-delete {
+.button-save,
+.button-delete {
   margin-top: 1rem;
 }
 
@@ -81,6 +149,10 @@ html {
   width: 150px;
 }
 
+.movie-list img:hover {
+  cursor: pointer;
+}
+
 .content {
   display: flex;
   width: 100%;
@@ -109,4 +181,219 @@ html {
 
 .no-display {
   display: none;
+}
+
+
+
+/* login ---------- */
+.login {
+  width: 300px;
+  margin: 0 auto;
+  font-family: Tahoma, Geneva, sans-serif;
+}
+
+.login h2 {
+  text-align: center;
+  color: var(--black);
+  font-size: 1.5rem;
+  padding: 20px 0 20px 0;
+}
+
+.login input[type="password"],
+.login input[type="email"] {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #dddddd;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.login input[type="submit"] {
+  width: 100%;
+  padding: 15px;
+  background-color: #535b63;
+  border: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* Footer section ------------------------ */
+footer {
+  margin-top: 2rem;
+  border-top: #3a3a3a solid 2px;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+footer>div {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  line-height: 1.1rem;
+}
+
+
+/* Effects ---------  */
+
+/* .imageContainer {
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #eee;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.imageContainer img {
+  object-fit: cover;
+}
+
+.imageContainer::before, .imageContainer::after {
+  background-image: linear-gradient(-180deg, #A1DEFF 0%, #5EA3DB 97%);
+  content: '';
+  height: 100%;
+  position: absolute;
+  transition: all .2s;
+  transition-delay: .2s;
+  transform: translateY(0px) translateX(0px);
+  width: 100%;
+  z-index: -1;
+}
+
+.imageContainer::after {
+  background-image: linear-gradient(0deg, #FFCF70 0%, #FFAE3D 97%);
+}
+
+.imageContainer:hover {
+  animation-name: hoverPop;
+  animation-duration: 0.4s;
+  animation-fill-direction: forward;
+}
+
+.imageContainer:hover img {
+  box-shadow: 2px 2px 4px 0px rgba(10, 12, 15, 0.27);
+  box-shadow: 0px 0px 30px 0px rgba(10, 12, 15, 0.27);
+}
+
+.imageContainer:hover::before {
+  animation: slick-hover-2 3s 0.4s linear infinite;
+  transform: translateY(-20px) translateX(-20px);
+}
+
+.imageContainer:hover::after {
+  animation: slick-hover 3s 0.4s linear infinite reverse;
+  transform: translateY(20px) translateX(20px);
+}
+
+@keyframes hoverPop {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  33% {
+    transform: scale(1.05);
+  }
+
+  66% {
+    transform: scale(0.9);
+  }
+}
+
+@keyframes slick-hover {
+  0.00% {
+    transform: translateY(20px) translateX(20px);
+  }
+
+  16.67% {
+    transform: translateY(-13px) translateX(-9px);
+  }
+
+  33.33% {
+    transform: translateY(4px) translateX(12px);
+  }
+
+  50.00% {
+    transform: translateY(20px) translateX(-20px);
+  }
+
+  66.67% {
+    transform: translateY(-3px) translateX(8px);
+  }
+
+  83.33% {
+    transform: translateY(-15px) translateX(-11px);
+  }
+
+  100.00% {
+    transform: translateY(20px) translateX(20px);
+  }
+}
+
+@keyframes slick-hover-2 {
+  0.00% {
+    transform: translateY(-20px) translateX(-20px);
+  }
+
+  16.67% {
+    transform: translateY(3px) translateX(-5px);
+  }
+
+  33.33% {
+    transform: translateY(18px) translateX(-10px);
+  }
+
+  50.00% {
+    transform: translateY(-20px) translateX(20px);
+  }
+
+  66.67% {
+    transform: translateY(15px) translateX(-4px);
+  }
+
+  83.33% {
+    transform: translateY(-1px) translateX(15px);
+  }
+
+  100.00% {
+    transform: translateY(-20px) translateX(-20px);
+  }
+}
+ */
+
+/* effects 2 ------------------------------ */
+.movie-list {
+  visibility: hidden;
+}
+
+.movie-list>* {
+  visibility: visible;
+}
+
+.movie-list>* {
+  transition: opacity 150ms linear 100ms, transform 150ms ease-in-out 100ms;
+}
+
+.movie-list:hover>* {
+  opacity: 0.4;
+  transform: scale(0.9);
+}
+
+.movie-list>*:hover {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 0ms, 0ms;
+}
+
+.movie-list>* {
+  background: white;
+  padding: 0.2rem;
+  margin: 0.1rem;
+  text-align: center;
+  font-size: 1.5em;
+  text-decoration: none;
 }
